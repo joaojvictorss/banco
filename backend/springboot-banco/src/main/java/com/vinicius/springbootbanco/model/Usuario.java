@@ -1,39 +1,96 @@
 package com.vinicius.springbootbanco.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
     private Long id;
 
+    private String nome;
+
+    private String cpf;
+
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
+
+    private String telefone;
+
     private String email;
-    private String senha;
-    private Double saldo;
 
-    public Usuario() {}
+    private Boolean suspeito;
 
-    public Usuario(String email, String senha, Double saldo) {
-        this.email = email;
-        this.senha = senha;
-        this.saldo = saldo;
+    // Relacionamento com Conta
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Conta conta;
+
+    // Construtor
+    public Usuario() {
     }
 
-    public Long getId() { return id; }
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Double getSaldo() { return saldo; }
-    public void setSaldo(Double saldo) { this.saldo = saldo; }
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getSuspeito() {
+        return suspeito;
+    }
+
+    public void setSuspeito(Boolean suspeito) {
+        this.suspeito = suspeito;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
 }
-

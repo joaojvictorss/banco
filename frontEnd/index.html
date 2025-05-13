@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Bancário</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/script.js"></script>
 </head>
+
 <body>
   <div class="container">
     <div class="left-panel">
       <h1>Bem-vindo de volta!</h1>
       <p>Acesse sua conta Bradesco para continuar</p>
     </div>
-    
+
     <div class="right-panel">
-      <form id="loginForm">
+      <form id="loginForm" action="/perform_login" method="post">
         <h2>Login</h2>
         <input type="text" name="email" placeholder="E-mail" required />
         <input type="password" name="senha" placeholder="Senha" required />
@@ -22,6 +25,7 @@
       </form>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="/js/script.js"></script>
 </body>
+
 </html>
