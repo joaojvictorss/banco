@@ -26,10 +26,30 @@ body {
   flex: 1;
   background: #c4001d;
   color: white;
-  padding: 40px;
+  padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.left-panel h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: 0;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.left-panel p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0;
 }
 
 .right-panel {
@@ -65,5 +85,25 @@ button {
 
 button:hover {
   background: #a80018;
+}
+
+/* Logo Bradesco estilizada */
+.bradesco-logo {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 32px;
+  display: block;
+  background: rgba(255,255,255,0.97);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  padding: 32px;
+  object-fit: contain;
+  border: 3px solid #fff;
+  transition: box-shadow 0.3s;
+}
+
+.bradesco-logo:hover {
+  box-shadow: 0 12px 48px rgba(0,0,0,0.22), 0 3px 12px rgba(0,0,0,0.13);
 }
 

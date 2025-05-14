@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.vinicius.springbootbanco.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    // Sem método de login, pois 'senha' não é propriedade de Usuario.
 }

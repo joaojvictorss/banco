@@ -6,14 +6,14 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const senha = formData.get("senha");
 
     try {
-        const response = await fetch("http://localhost:8080/index.html", {
+        const response = await fetch("http://localhost:8080/login", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({ email: email, senha: senha })
         });
 
         if (response.ok) {
-            const data = await response.json();
+            // Não tenta converter para JSON se não precisar
             alert("Login bem-sucedido!");
             window.location.href = "home.html";
         } else {
