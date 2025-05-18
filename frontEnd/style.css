@@ -312,6 +312,86 @@ main {
   margin-bottom: 1px;
 }
 
+.login-bg {
+  min-height: 100vh;
+  background: #f5f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
+  padding: 38px 28px 28px 28px;
+  max-width: 340px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bradesco-logo {
+  width: 90px;
+  margin-bottom: 18px;
+}
+
+.login-title {
+  font-size: 1.25rem;
+  color: #e70033;
+  margin-bottom: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-form input {
+  padding: 12px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.login-form input:focus {
+  border: 1.5px solid #e70033;
+}
+
+.login-form button {
+  background: #e70033;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.18s;
+}
+
+.login-form button:hover {
+  background: #c9002b;
+}
+
+.login-link {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.97rem;
+  color: #e70033;
+  text-align: center;
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
 @media (max-width: 500px) {
   .app-container {
     max-width: 100vw;
