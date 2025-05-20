@@ -1,6 +1,16 @@
 // --- LOGIN ---
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
+  // Função para hashear a senha em SHA-256 usando Web Crypto API
+  async function hashPasswordSHA256(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
   loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -8,11 +18,14 @@ if (loginForm) {
     const email = formData.get("email");
     const senha = formData.get("senha");
 
+    // Hasheia a senha antes de enviar
+    const senhaHash = await hashPasswordSHA256(senha);
+
     try {
       const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ email: email, senha: senha })
+        body: new URLSearchParams({ email: email, senha: senhaHash })
       });
 
       if (response.ok) {
@@ -59,20 +72,11 @@ if (btnSaldo && saldoValor) {
   atualizarIconeOlho();
 }
 
-// Acessar área do Pix (limpa conteúdo interno do app)
+// Acessar área do Pix (redireciona para pix.html)
 const favPix = document.getElementById('fav-pix');
 if (favPix) {
   favPix.addEventListener('click', () => {
-    const header = document.querySelector('.app-header');
-    Array.from(header.children).forEach((child, idx) => {
-      if (idx > 0) child.innerHTML = '';
-    });
-
-    const main = document.querySelector('main');
-    if (main) main.innerHTML = '';
-
-    const footer = document.querySelector('.app-footer');
-    if (footer) footer.innerHTML = '';
+    window.location.href = "pix.html";
   });
   favPix.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {

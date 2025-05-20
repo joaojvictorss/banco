@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.vinicius.springbootbanco.model.Conta;
 import com.vinicius.springbootbanco.repository.ContaRepository;
-import com.vinicius.springbootbanco.util.PasswordUtil;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -18,15 +17,19 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
-        // Converte a senha para hash SHA-256
-        String hashedSenha = PasswordUtil.hashPassword(senha);
+        try {
+            // A senha já chega hasheada do front-end, não hashear novamente!
+            Optional<Conta> contaOpt = contaRepository.findByUsuarioEmailAndSenha(email, senha);
 
-        Optional<Conta> contaOpt = contaRepository.findByUsuarioEmailAndSenha(email, hashedSenha);
-
-        if (contaOpt.isPresent()) {
-            return ResponseEntity.ok(contaOpt.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+            if (contaOpt.isPresent()) {
+                return ResponseEntity.ok(contaOpt.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Para logar o erro no console do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro interno no servidor: " + e.getMessage());
         }
     }
 }
