@@ -11,7 +11,7 @@
   --background: #fff;
   --menu-bg: #f7f7f7;
   --footer-bg: #fff;
-  --shadow: 0 2px 12px 0 rgba(0,0,0,.06);
+  --shadow: 0 2px 12px 0 rgba(0, 0, 0, .06);
 }
 
 body {
@@ -25,7 +25,7 @@ body {
 .app-container {
   max-width: 375px;
   margin: 0 auto;
-  box-shadow: 0 0 16px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.06);
   background: #fff;
   min-height: 100vh;
   position: relative;
@@ -105,7 +105,7 @@ body {
 }
 
 .saldo-btn {
-  background: rgba(255,255,255,0.14);
+  background: rgba(255, 255, 255, 0.14);
   border: none;
   color: #fff;
   font-size: 1.12rem;
@@ -121,7 +121,7 @@ body {
 }
 
 .saldo-btn:hover {
-  background: rgba(255,255,255,0.22);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .saldo-valor {
@@ -133,7 +133,7 @@ body {
   font-size: 1.45rem;
   font-weight: bold;
   letter-spacing: 1px;
-  box-shadow: 0 1px 6px rgba(231,0,51,0.08);
+  box-shadow: 0 1px 6px rgba(231, 0, 51, 0.08);
   margin-bottom: 4px;
   min-width: 140px;
   cursor: pointer;
@@ -169,7 +169,7 @@ body {
 }
 
 .menu-item img {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   padding: 7px;
   width: 36px;
@@ -218,13 +218,14 @@ main {
 .fav-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px; /* valor aumentado para mais separação */
+  gap: 50px;
+  /* valor aumentado para mais separação */
 }
 
 .fav-item {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,.07);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .07);
   padding: 18px 10px 10px 10px;
   width: 80px;
   display: flex;
@@ -236,8 +237,9 @@ main {
   transition: box-shadow 0.15s, transform 0.13s;
 }
 
-.fav-item:active, .fav-item:focus {
-  box-shadow: 0 6px 24px 0 rgba(231,0,51,0.13);
+.fav-item:active,
+.fav-item:focus {
+  box-shadow: 0 6px 24px 0 rgba(231, 0, 51, 0.13);
   transform: scale(1.03);
 }
 
@@ -245,7 +247,7 @@ main {
   width: 34px;
   height: 34px;
   margin-bottom: 7px;
-  transition: transform 0.18s cubic-bezier(.4,1.3,.6,1);
+  transition: transform 0.18s cubic-bezier(.4, 1.3, .6, 1);
 }
 
 .fav-item:hover .fav-icon,
@@ -277,7 +279,7 @@ main {
   max-width: 375px;
   margin: 0 auto;
   background: var(--footer-bg);
-  box-shadow: 0 -2px 12px 0 rgba(0,0,0,.04);
+  box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, .04);
   border-radius: 18px 18px 0 0;
   z-index: 100;
 }
@@ -323,7 +325,7 @@ main {
 .login-container {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.10);
   padding: 38px 28px 28px 28px;
   max-width: 340px;
   width: 100%;
@@ -397,6 +399,7 @@ main {
     max-width: 100vw;
     border-radius: 0;
   }
+
   .app-footer {
     max-width: 100vw;
     border-radius: 0;
@@ -404,14 +407,75 @@ main {
 }
 
 @media (max-width: 375px) {
-  .menu-row { gap: 2px; }
-  .fav-item { width: 70px; }
+  .menu-row {
+    gap: 2px;
+  }
+
+  .fav-item {
+    width: 70px;
+  }
 }
 
 /* Scrollbar hidden for mobile look */
-body, .app-container {
+body,
+.app-container {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-body::-webkit-scrollbar, .app-container::-webkit-scrollbar { display: none; }
 
+body::-webkit-scrollbar,
+.app-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Área Pix */
+.pix-area {
+  padding: 24px 16px;
+}
+
+.pix-area h2 {
+  color: #e70033;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.pix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 12px;
+  justify-items: center;
+  margin-top: 10px;
+}
+
+.pix-item {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 8px 10px 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-width: 90px;
+  min-height: 110px;
+}
+
+.pix-item:hover {
+  box-shadow: 0 4px 16px rgba(231, 0, 51, 0.12);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.pix-item img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.pix-item span {
+  color: #e70033;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
