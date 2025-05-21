@@ -174,3 +174,42 @@ if (logoutBtn) {
     }, 200);
   });
 }
+
+// Pix: redirecionar ao clicar em Transferir
+const pixTransferir = document.getElementById('pix-transferir');
+if (pixTransferir) {
+  pixTransferir.addEventListener('click', () => {
+    window.location.href = "../inserir.html";
+  });
+  pixTransferir.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      pixTransferir.click();
+    }
+  });
+  pixTransferir.setAttribute('tabindex', '0');
+}
+
+// --- CONTINUAR PIX ---
+document.getElementById('btn-continuar-pix').onclick = async function() {
+  const chave = document.getElementById('chave-pix').value.trim();
+  if (!chave) {
+      alert("Digite uma chave Pix.");
+      return;
+  }
+  // Chama o backend para verificar suspeita
+  try {
+      const resp = await fetch(`http://localhost:8080/pix/verificar-chave?chave=${encodeURIComponent(chave)}`);
+      const suspeito = await resp.json();
+      if (suspeito) {
+          // Redireciona para msn.html e passa a chave via localStorage
+          localStorage.setItem('chaveSuspeita', chave);
+          window.location.href = "msn.html";
+      } else {
+          // Segue para valor.html
+          localStorage.setItem('chavePix', chave);
+          window.location.href = "valor.html";
+      }
+  } catch (e) {
+      alert("Erro ao verificar chave Pix.");
+  }
+};
