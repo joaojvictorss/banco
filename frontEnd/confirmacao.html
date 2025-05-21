@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmação do Pix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="pix-modal">
+            <h2>Confirmação do Pix</h2>
+            <hr class="pix-divider"/>
+            <div id="pix-confirmacao-info" style="margin-bottom:24px;">
+                <!-- Informações do Pix preenchidas via JS -->
+            </div>
+            <div class="pix-btns">
+                <button type="button" class="pix-btn-cancelar" onclick="window.location.href='valor.html'">Voltar</button>
+                <button type="button" class="pix-btn-continuar" id="btn-confirmar-pix">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+      // Exibe informações do Pix usando localStorage
+      const chave = localStorage.getItem('chavePix') || '';
+      const valor = localStorage.getItem('valorPix') || '';
+      document.getElementById('pix-confirmacao-info').innerHTML = `
+        <p><strong>Chave Pix destino:</strong> ${chave}</p>
+        <p><strong>Valor:</strong> R$ ${Number(valor).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+      `;
+
+      document.getElementById('btn-confirmar-pix').onclick = function() {
+        alert("Pix enviado com sucesso!");
+        // Limpa os dados do Pix e volta para home
+        localStorage.removeItem('chavePix');
+        localStorage.removeItem('valorPix');
+        window.location.href = "home.html";
+      };
+    </script>
+</body>
+</html>

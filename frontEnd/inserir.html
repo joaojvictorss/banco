@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Enviar Pix - Bradesco</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="frontEnd/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
@@ -20,8 +20,13 @@
         <main>
             <section class="pix-area">
                 <h2>Enviar Pix para</h2>
-                <label for="chave-pix" style="color:#444;font-weight:600;">Digite chave ou nome do contato:</label>
-                <input type="text" id="chave-pix" placeholder="CPF, Telefone, Email ou Aleatória" style="width:100%;margin:12px 0 20px 0;padding:12px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:1rem;">
+                <form id="form-chave-pix" autocomplete="off">
+                    <label for="chave-pix" style="color:#444;font-weight:600;">Digite chave ou nome do contato:</label>
+                    <input type="text" id="chave-pix" placeholder="CPF, Telefone, Email ou Aleatória" style="width:100%;margin:12px 0 20px 0;padding:12px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:1rem;" required>
+                    <div class="pix-btns" style="margin-bottom:18px;">
+                        <button type="submit" class="pix-btn-continuar">Próximo</button>
+                    </div>
+                </form>
                 <div style="color:#888;font-size:0.95rem;margin-bottom:18px;">Sugestões:</div>
                 <div style="display:flex;gap:18px;flex-wrap:wrap;">
                     <div style="background:#f7f7f7;border-radius:12px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;width:60px;">
@@ -69,6 +74,49 @@
             </div>
         </footer>
     </div>
-    <script src="frontEnd/script.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // Lógica para o botão "Próximo" do formulário de chave Pix
+      document.getElementById('form-chave-pix').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const chave = document.getElementById('chave-pix').value.trim();
+        if (!chave) {
+          alert("Digite uma chave Pix.");
+          return;
+        }
+        // Verifica se está tentando enviar para si mesmo
+        const emailUsuario = localStorage.getItem('emailUsuario');
+        if (emailUsuario && chave.toLowerCase() === emailUsuario.toLowerCase()) {
+          alert("Você não pode enviar um Pix para você mesmo.");
+          return;
+        }
+        try {
+          const resp = await fetch(`http://localhost:8080/pix/verificar-chave?chave=${encodeURIComponent(chave)}`);
+          if (resp.status === 404) {
+            alert("Chave Pix não encontrada.");
+            return;
+          }
+          const suspeito = await resp.json();
+          if (suspeito === null) {
+            alert("Chave Pix não encontrada.");
+            return;
+          }
+          if (suspeito) {
+            // Pergunta ao usuário se deseja prosseguir
+            const continuar = confirm("Atenção: Esta chave Pix está marcada como suspeita. Deseja continuar mesmo assim?");
+            if (continuar) {
+              localStorage.setItem('chavePix', chave);
+              window.location.href = "valor.html";
+            }
+            // Se não quiser continuar, não faz nada
+          } else {
+            localStorage.setItem('chavePix', chave);
+            window.location.href = "valor.html";
+          }
+        } catch (e) {
+          alert("Erro ao verificar chave Pix.");
+        }
+      });
+    </script>
 </body>
 </html>

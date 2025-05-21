@@ -479,3 +479,24 @@ body::-webkit-scrollbar,
   font-weight: 500;
   text-align: center;
 }
+
+.pix-btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Botão único ocupa 100% da largura */
+.pix-btns .pix-btn-continuar:only-child {
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+/* Se houver só um botão dentro de .pix-btns, ele ocupa 100% */
+.pix-btns:only-child,
+.pix-btns:has(.pix-btn-continuar:only-child) {
+  justify-content: center;
+}

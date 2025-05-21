@@ -83,3 +83,6 @@ INSERT INTO chave_email (email, conta_id) VALUES
 ('fernanda.costa@gmail.com', 8),
 ('rafael.almeida@hotmail.com', 9),
 ('beatriz.martins@yahoo.com', 10);
+
+-- Exemplo: marcar uma chave como suspeita
+UPDATE chave_email SET suspeito = TRUE WHERE email = 'carlos.souza@hotmail.com';

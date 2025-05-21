@@ -30,6 +30,8 @@ if (loginForm) {
 
       if (response.ok) {
         alert("Login bem-sucedido!");
+        // Salva o email do usuário logado para validação futura de Pix
+        localStorage.setItem('emailUsuario', email);
         window.location.href = "home.html";
       } else {
         const error = await response.text();
@@ -179,7 +181,7 @@ if (logoutBtn) {
 const pixTransferir = document.getElementById('pix-transferir');
 if (pixTransferir) {
   pixTransferir.addEventListener('click', () => {
-    window.location.href = "../inserir.html";
+    window.location.href = "inserir.html";
   });
   pixTransferir.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {

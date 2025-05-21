@@ -4,6 +4,7 @@ import com.vinicius.springbootbanco.model.Conta;
 import com.vinicius.springbootbanco.model.Transacao;
 import com.vinicius.springbootbanco.repository.ContaRepository;
 import com.vinicius.springbootbanco.repository.TransacaoRepository;
+import com.vinicius.springbootbanco.repository.ChaveEmailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class PixController {
 
     @Autowired
     private TransacaoRepository transacaoRepository;
+
+    @Autowired
+    private ChaveEmailRepository chaveEmailRepository;
 
     // Extrato Pix
     @GetMapping("/extrato/{contaId}")
@@ -58,5 +62,14 @@ public class PixController {
         transacaoRepository.save(transacao);
 
         return ResponseEntity.ok("Transferência Pix realizada com sucesso.");
+    }
+
+    // Verificar se a chave Pix (email) é suspeita
+    @GetMapping("/verificar-chave")
+    public ResponseEntity<Boolean> verificarChave(@RequestParam("chave") String chave) {
+        // Considera a chave como email
+        return chaveEmailRepository.findByEmail(chave)
+                .map(chaveEmail -> ResponseEntity.ok(Boolean.TRUE.equals(chaveEmail.getSuspeito())))
+                .orElse(ResponseEntity.status(404).body(null));
     }
 }
