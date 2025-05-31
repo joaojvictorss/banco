@@ -1,41 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Confirmação do Pix</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Confirmação do Pix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="app-container">
-        <div class="pix-modal">
-            <h2>Confirmação do Pix</h2>
-            <hr class="pix-divider"/>
-            <div id="pix-confirmacao-info" style="margin-bottom:24px;">
-                <!-- Informações do Pix preenchidas via JS -->
-            </div>
-            <div class="pix-btns">
-                <button type="button" class="pix-btn-cancelar" onclick="window.location.href='valor.html'">Voltar</button>
-                <button type="button" class="pix-btn-continuar" id="btn-confirmar-pix">Confirmar</button>
-            </div>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-top">
+        <span class="logo">Bradesco</span>
+      </div>
+      <div class="header-user">
+        <span>Olá, Rafael Rangel</span>
+        <span class="logout">Sair</span>
+      </div>
+    </header>
+    <main>
+      <section class="pix-area">
+        <h2 style="color:#e70033;font-weight:700;">Confirmação do Pix</h2>
+        <hr class="pix-divider" />
+        <div id="pix-confirmacao-info" style="margin-bottom:24px;">
+          <!-- Informações do Pix preenchidas via JS -->
         </div>
-    </div>
-    <script>
-      // Exibe informações do Pix usando localStorage
-      const chave = localStorage.getItem('chavePix') || '';
-      const valor = localStorage.getItem('valorPix') || '';
-      document.getElementById('pix-confirmacao-info').innerHTML = `
+        <div class="pix-btns">
+          <button type="button" class="pix-btn-cancelar" onclick="window.location.href='valor.html'">Voltar</button>
+          <button type="button" class="pix-btn-continuar" id="btn-confirmar-pix">Confirmar</button>
+        </div>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <div class="footer-menu">
+        <div class="footer-item">
+          <a href="home.html">
+            <img src="https://img.icons8.com/ios-filled/24/e70033/home.png" alt="Home" />
+            <span>Home</span>
+          </a>
+        </div>
+        <div class="footer-item">
+          <img src="https://img.icons8.com/ios-filled/24/e70033/robot-3.png" alt="BIA" />
+          <span>BIA</span>
+        </div>
+        <div class="footer-item">
+          <img src="https://img.icons8.com/ios-filled/24/e70033/shop.png" alt="Shop" />
+          <span>Shop</span>
+        </div>
+        <div class="footer-item">
+          <img src="https://img.icons8.com/ios-filled/24/e70033/user-male-circle.png" alt="Perfil" />
+          <span>Perfil</span>
+        </div>
+        <div class="footer-item active">
+          <img src="https://img.icons8.com/ios-filled/24/e70033/menu.png" alt="Menu" />
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    // Exibe informações do Pix usando localStorage
+    const chave = localStorage.getItem('chavePix') || '';
+    const valor = localStorage.getItem('valorPix') || '';
+    document.getElementById('pix-confirmacao-info').innerHTML = `
         <p><strong>Chave Pix destino:</strong> ${chave}</p>
-        <p><strong>Valor:</strong> R$ ${Number(valor).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+        <p><strong>Valor:</strong> R$ ${Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       `;
 
-      document.getElementById('btn-confirmar-pix').onclick = function() {
-        alert("Pix enviado com sucesso!");
-        // Limpa os dados do Pix e volta para home
-        localStorage.removeItem('chavePix');
-        localStorage.removeItem('valorPix');
-        window.location.href = "home.html";
-      };
-    </script>
+    document.getElementById('btn-confirmar-pix').onclick = function () {
+      alert("Pix enviado com sucesso!");
+      // Limpa os dados do Pix e volta para home
+      localStorage.removeItem('chavePix');
+      localStorage.removeItem('valorPix');
+      window.location.href = "home.html";
+    };
+  </script>
 </body>
+
 </html>

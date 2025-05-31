@@ -500,3 +500,33 @@ body::-webkit-scrollbar,
 .pix-btns:has(.pix-btn-continuar:only-child) {
   justify-content: center;
 }
+
+.pix-btn-continuar {
+  flex: 1;
+  background: #e70033;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.pix-btn-cancelar {
+  flex: 1;
+  background: #fff;
+  color: #e70033;
+  border: 1.5px solid #e70033;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.pix-btn-cancelar:hover {
+  background: #f7f7f7;
+}

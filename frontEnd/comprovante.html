@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +28,8 @@
     }
 
     .header {
-      background-color: #ec0677;
+      background-color: #e70033;
+      /* alterado para cor padrão */
       color: white;
       padding: 16px;
       font-size: 20px;
@@ -63,7 +65,8 @@
     }
 
     .highlight {
-      color: #ec0677;
+      color: #e70033;
+      /* alterado para cor padrão */
       font-size: 13px;
       font-weight: bold;
       float: right;
@@ -85,7 +88,8 @@
     }
 
     .btn {
-      background-color: #ec0677;
+      background-color: #e70033;
+      /* alterado para cor padrão */
       color: white;
       border: none;
       padding: 10px 16px;
@@ -97,10 +101,12 @@
     }
 
     .btn:hover {
-      background-color: #d1056b;
+      background-color: #b80027;
+      /* hover igual ao das outras telas */
     }
   </style>
 </head>
+
 <body>
 
   <div class="app">
@@ -120,18 +126,26 @@
       <hr />
 
       <div class="info-group">
-        <div class="label">Forma de pagamento</div>
-        <div class="value">Chave Pix</div>
-
-        <div class="label">Data e hora</div>
-        <div class="value">12/05/2025 - 22:36:07</div>
-
-        <div class="label">Debitado da</div>
-        <div class="value">Conta-corrente</div>
-
-        <div class="label">Identificação</div>
-        <div class="value">E60746948202505130135A0114XOLC18</div>
+        <div class="label">Valor</div>
+        <div class="value" id="valor-pix">
+          <!-- Valor será preenchido via JS -->
+        </div>
       </div>
+      ...
+      <div class="label">Data e hora</div>
+      <div class="value" id="data-hora-pix"></div>
+      ...
+      <div class="label">Nome</div>
+      <div class="value" id="nome-recebedor"></div>
+
+      <div class="label">CPF/CNPJ</div>
+      <div class="value" id="cpf-recebedor"></div>
+
+      <div class="label">Instituição</div>
+      <div class="value" id="banco-recebedor"></div>
+
+      <div class="label">Chave</div>
+      <div class="value" id="chave-pix"></div>
 
       <hr />
 
@@ -145,7 +159,7 @@
         <div class="value">***.654.890-**</div>
 
         <div class="label">Instituição</div>
-        <div class="value">Banco XTL S.A</div>
+        <div class="value">Banco Bradesco</div>
 
         <div class="label">Chave</div>
         <div class="value">Rafael.ferreira@gmail.com</div>
@@ -161,17 +175,17 @@
 
   <script>
     function voltar() {
-      window.history.back(); // volta para a página anterior
+      window.location.href = "home.html"; // volta para a tela inicial
     }
 
     function compartilhar() {
       const conteudo = `
-        Comprovante Pix:
-        Valor: R$ 50,00
-        Data e Hora: 12/05/2025 - 22:36:07
-        Recebedor: RAFAEL SILVA FERREIRA
-        Chave: Rafael.ferreira@gmail.com
-      `;
+      Comprovante Pix:
+      Valor: R$ 50,00
+      Data e Hora: 12/05/2025 - 22:36:07
+      Recebedor: RAFAEL SILVA FERREIRA
+      Chave: Rafael.ferreira@gmail.com
+    `;
 
       if (navigator.share) {
         navigator.share({
@@ -184,7 +198,59 @@
     }
   </script>
 
+  <script>
+    // Função para preencher os dados do comprovante
+    function preencherComprovante() {
+      // Pegue os dados do localStorage
+      const valor = localStorage.getItem('valorPix') || '0.00';
+      const chave = localStorage.getItem('chavePix') || '---';
+      const nome = localStorage.getItem('nomeRecebedor') || '---';
+      const cpf = localStorage.getItem('cpfRecebedor') || '---';
+      const banco = localStorage.getItem('bancoRecebedor') || '---';
+      const dataHora = localStorage.getItem('dataHoraPix') || new Date().toLocaleString('pt-BR');
+
+      // Preencha os campos no HTML
+      document.getElementById('valor-pix').textContent = `R$ ${Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('chave-pix').textContent = chave;
+      document.getElementById('nome-recebedor').textContent = nome;
+      document.getElementById('cpf-recebedor').textContent = cpf;
+      document.getElementById('banco-recebedor').textContent = banco;
+      document.getElementById('data-hora-pix').textContent = dataHora;
+    }
+
+    // Chame a função ao carregar a página
+    window.onload = preencherComprovante;
+
+    function voltar() {
+      window.location.href = "home.html";
+    }
+
+    function compartilhar() {
+      const valor = document.getElementById('valor-pix').textContent;
+      const dataHora = document.getElementById('data-hora-pix').textContent;
+      const nome = document.getElementById('nome-recebedor').textContent;
+      const chave = document.getElementById('chave-pix').textContent;
+
+      const conteudo = `
+Comprovante Pix:
+Valor: ${valor}
+Data e Hora: ${dataHora}
+Recebedor: ${nome}
+Chave: ${chave}
+`;
+
+      if (navigator.share) {
+        navigator.share({
+          title: 'Comprovante Pix',
+          text: conteudo,
+        }).catch((err) => console.error('Erro ao compartilhar:', err));
+      } else {
+        alert('Compartilhamento não suportado neste dispositivo.');
+      }
+    }
+  </script>
 </body>
+
 </html>
 <!--
 Pagina HTML para exibir um comprovante de pagamento via pix.
